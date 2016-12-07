@@ -1,0 +1,13 @@
+{
+  "authorizationUrl":"https://kauth.kakao.com/oauth/authorize",
+  "accessTokenUrl":"https://kauth.kakao.com/oauth/token",
+  "clientId":"",
+  "clientSecret":"",
+  "authType" : "OAuth2",
+  "scope":[ ],
+  "statusAcceptNotification":200,
+  "accessTokenMethod": "get",
+  "parameters": {
+    "endpoint" : "https://kapi.kakao.com/v1/"
+  }
+}
