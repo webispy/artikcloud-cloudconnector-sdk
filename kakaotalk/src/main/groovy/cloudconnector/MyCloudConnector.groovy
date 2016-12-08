@@ -23,21 +23,34 @@ class MyCloudConnector extends CloudConnector {
     @Override
     Or<RequestDef, Failure> signAndPrepare(Context ctx, RequestDef req, DeviceInfo info, Phase phase) {
         switch (phase) {
-          case Phase.getOauth2Code:
           case Phase.getOauth2Token:
             def params = [:]
             params.putAll(req.queryParams())
             params.remove('client_secret')
-            return new Good(req.withQueryParams(params))
+            return new Good(req.withBodyParams(params).withQueryParams([:]))
+          case Phase.refreshToken:
+            def params = [:]
+            params.putAll(req.queryParams())
+            params.remove('client_secret')
+            params.put('client_id', ctx.clientId())
+            params.put('grant_type', 'refresh_token')
+            params.put(['refresh_token', info.credentials().refreshToken().get()])
+            return new Good(req.withBodyParams(params).withQueryParams([:]))
           case Phase.subscribe:
           case Phase.unsubscribe:
+          case Phase.undef:
           case Phase.fetch:
             return new Good(req.addHeaders(["Authorization": "Bearer " + info.credentials.token]))
-          // case Phase.refreshToken:
-          // case Phase.undef:
           default:
             return super.signAndPrepare(ctx, req, info, phase)
         }
+    }
+
+    @Override
+    Or<NotificationResponse, Failure> onNotification(Context ctx, RequestDef req) {
+        ctx.debug("onNotification: " + req)
+        // nothing todo
+        return new Good(new NotificationResponse([]))
     }
 
     @Override
