@@ -11,8 +11,6 @@ import groovy.transform.CompileStatic
 import groovy.transform.ToString
 import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
-import java.time.*
-import java.time.format.DateTimeFormatter
 import cloud.artik.cloudconnector.api_v1.*
 import scala.Option
 
@@ -25,12 +23,16 @@ class MyCloudConnector extends CloudConnector {
     @Override
     Or<RequestDef, Failure> signAndPrepare(Context ctx, RequestDef req, DeviceInfo info, Phase phase) {
         switch (phase) {
+          case Phase.getOauth2Code:
+          case Phase.getOauth2Token:
+            def params = [:]
+            params.putAll(req.queryParams())
+            params.remove('client_secret')
+            return new Good(req.withQueryParams(params))
           case Phase.subscribe:
           case Phase.unsubscribe:
           case Phase.fetch:
             return new Good(req.addHeaders(["Authorization": "Bearer " + info.credentials.token]))
-          // case Phase.getOauth2Code:
-          // case Phase.getOauth2Token:
           // case Phase.refreshToken:
           // case Phase.undef:
           default:
