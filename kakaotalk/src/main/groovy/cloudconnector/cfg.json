@@ -6,7 +6,7 @@
   "authType" : "OAuth2",
   "scope":[ ],
   "statusAcceptNotification":200,
-  "accessTokenMethod": "get",
+  "accessTokenMethod": "post",
   "parameters": {
     "endpoint" : "https://kapi.kakao.com/v1/"
   }
