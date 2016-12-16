@@ -1,0 +1,13 @@
+{
+  "authorizationUrl":"https://notify-bot.line.me/oauth/authorize",
+  "accessTokenUrl":"https://notify-bot.line.me/oauth/token",
+  "clientId":"",
+  "clientSecret":"",
+  "authType" : "OAuth2",
+  "scope":[ "notify" ],
+  "statusAcceptNotification":200,
+  "accessTokenMethod": "post",
+  "parameters": {
+    "endpoint" : "https://notify-api.line.me/api/"
+  }
+}
