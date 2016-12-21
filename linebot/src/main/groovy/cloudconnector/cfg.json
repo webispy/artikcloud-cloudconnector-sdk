@@ -1,0 +1,13 @@
+{
+  "authorizationUrl":"https://webispy-linebot.herokuapp.com/api/authorize",
+  "accessTokenUrl":"https://webispy-linebot.herokuapp.com/api/token",
+  "clientId":"",
+  "clientSecret":"",
+  "authType" : "OAuth2",
+  "scope":[ ],
+  "statusAcceptNotification":200,
+  "accessTokenMethod": "post",
+  "parameters": {
+    "endpoint" : "https://api.line.me/v2/bot"
+  }
+}
